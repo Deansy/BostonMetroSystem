@@ -5,7 +5,7 @@ public interface GraphADT {
 
 	public void addNode(Node n);
 
-	public ArrayList<Node> findRoute(String sourceNode, String destinationNode);
+	public ArrayList<String> findRoute(String sourceNode, String destinationNode);
 
 	public void addEdge(Edge e);
 

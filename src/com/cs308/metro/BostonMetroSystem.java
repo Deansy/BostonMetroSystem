@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class BostonMetroSystem {
 
 	private  MultiGraph multiGraph;
-	private  ArrayList<Node> route;
+	private  ArrayList<String> route;
 
 	public void execute() {
 		String source = "";
