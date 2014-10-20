@@ -1,37 +1,16 @@
 package com.cs308.metro;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Set;
+import java.util.List;
 
 public class MultiGraph implements GraphADT {
 
-	private MetroMapParser metroMapParser;
-	private Set<Node> nodes;
-	private Set<Edge> edges;
-	private HashMap<Node, Set<Node>> nodeRelations;
+	private List<Node> nodes;
+	private List<Edge> edges;
 
-	MultiGraph() {
-		try {
-			metroMapParser = new MetroMapParser("bostonmetro.txt");
-			nodeRelations = metroMapParser.generateGraphFromFile();
-
-			nodes = metroMapParser.getStations();
-			edges = metroMapParser.getTracks();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-
-	@Override
-	public Set<Node> getNodeRelations(Node node) {
-		return nodeRelations.get(node);
-	}
-
-	@Override
-	public Set<Node> getNodes() {
-		return nodes;
+	public MultiGraph() {
+		nodes = new ArrayList<Node>();
+		edges = new ArrayList<Edge>();
 	}
 
 	@Override
@@ -54,27 +33,13 @@ public class MultiGraph implements GraphADT {
 
 	@Override
 	public ArrayList<Node> findRoute(String sourceNode, String destinationNode) {
-
-		return null;
+		ArrayList<Node> route = null;
+		return route;
 	}
-
 
 	@Override
 	public void addEdge(Edge e) {
 		edges.add(e);
-
-	}
-
-	@Override
-	public Set<Edge> getEdges() {
-		//
-		return edges;
-	}
-
-	@Override
-	public void setNodeRelations(Node node, Set<Node> connectingNodes) {
-
-		nodeRelations.put(node, connectingNodes);
 
 	}
 
