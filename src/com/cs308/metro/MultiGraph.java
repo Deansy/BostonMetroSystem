@@ -26,7 +26,7 @@ public class MultiGraph implements GraphADT {
 	@Override
 	public ArrayList<Node> findRoute(Node sourceNode, Node destinationNode) {
 		// if start = end. stop. return null
-		if (sourceNode.equals(destinationNode)) {
+		if (sourceNode.getNodeID() == destinationNode.getNodeID()) {
 			System.out
 					.println("Error: Source station identical to destination station");
 			return null;
@@ -110,17 +110,17 @@ public class MultiGraph implements GraphADT {
 	}
 
 	public ArrayList<Node> getAdjacentNodes(Node n) {
-		ArrayList<Node> ajacentNodes = new ArrayList<Node>();
+		ArrayList<Node> adjacentNodes = new ArrayList<Node>();
 		for (Node n2 : nodes) {
 			if (isEdge(Integer.toString(n.getNodeID()),
 					Integer.toString(n2.getNodeID()))) {
-				ajacentNodes.add(n2);
+				adjacentNodes.add(n2);
 			} else if (isEdge(Integer.toString(n2.getNodeID()),
 					Integer.toString(n.getNodeID()))) {
-				ajacentNodes.add(n2);
+				adjacentNodes.add(n2);
 			}
 		}
-		return ajacentNodes;
+		return adjacentNodes;
 	}
 
 }

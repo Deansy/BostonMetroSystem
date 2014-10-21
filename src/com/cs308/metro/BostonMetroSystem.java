@@ -29,23 +29,16 @@ public class BostonMetroSystem {
 				// Get the first station name
 				System.out.println("Please enter your departure station:\n");
 				source = sc.nextLine();
-				// if (source.equals("St.PaulStreet")) {
-				// char stpaul;
-				// System.out
-				// .println("Did you mean St. Paul Street on Green B or GreenC?");
-				// stpaul = sc.nextLine().charAt(0);
-				// switch (stpaul) {
-				// case 'b':
-				// break;
-				// case 'c':
-				// break;
-				// }
-				// }
 				if (source.equals("quit")) {
 					System.out.println("Exiting Application");
 					System.exit(0);
 				}
 
+				sourceNode = multiGraph.getNodeFromStationName(source);
+				// StPauls Handling
+				sourceNode = stPaulsDuplicate(sourceNode);
+				
+				
 				// Get the second station name
 				System.out.println("Please enter your destination station:\n");
 				destination = sc.nextLine();
@@ -61,13 +54,16 @@ public class BostonMetroSystem {
 					System.out.println("Calculating route...");
 
 					// Calculate the route and display it
-					sourceNode = multiGraph.getNodeFromStationName(source);
+
 					destinationNode = multiGraph
 							.getNodeFromStationName(destination);
 
 					// TestData
 					// System.out.println("source" + sourceNode);
 					// System.out.println("dest:" + destinationNode);
+
+					// StPauls Handling
+					destinationNode = stPaulsDuplicate(destinationNode);
 
 					route = multiGraph.findRoute(sourceNode, destinationNode);
 					if (route != null) {
@@ -76,10 +72,10 @@ public class BostonMetroSystem {
 									+ route.get(i).getNodeLabel());
 						}
 					} else
-						System.out.println("Route is empty!");
+						System.out.println("There is no route to show!");
 
 				} else {
-					System.out.println("Please enter two valid station names.");
+					System.out.println("Please enter two valid station names. ");
 				}
 			} while (source != "quit" || destination != "quit");
 			sc.close();
@@ -87,5 +83,23 @@ public class BostonMetroSystem {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	private Node stPaulsDuplicate(Node check) {
+		if (check.getNodeLabel().equals("St.PaulStreet")) {
+			char spChoice = ' ';
+			Scanner sp = new Scanner(System.in);
+			System.out.println("Do you mean \"St.PaulStreet\" on Line B or C? (b|c)");
+			spChoice = sp.nextLine().charAt(0);
+			if (spChoice == 'b') {
+				check.setNodeID(38);
+			} else if (spChoice == 'c') {
+				check.setNodeID(61);
+			} else {
+				System.out.println("You did not select a valid station. Assuming Line B");
+
+			}
+		}
+		return check;
 	}
 }
