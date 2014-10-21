@@ -5,8 +5,8 @@ import java.util.ArrayList;
 
 public class BostonMetroSystem {
 
-	private  MultiGraph multiGraph;
-	private  ArrayList<Node> route;
+	private MultiGraph multiGraph;
+	private ArrayList<String> route;
 
 	public void execute() {
 		String source = "";
@@ -16,31 +16,48 @@ public class BostonMetroSystem {
 		try {
 			MetroMapParser mmp = new MetroMapParser(filename);
 			multiGraph = mmp.generateGraphFromFile();
+
 			System.out.println("===================================");
 			System.out.println("=      Boston Metro System        =");
 			System.out.println("=           Welcome!              =");
 			System.out.println("===================================\n\n");
 
-			System.out.println("Please enter your departure station:\n");
-			Scanner sc = new Scanner(System.in);
-			source = sc.nextLine(); // validation
+			do {
+				// Get the first station name
+				System.out.println("Please enter your departure station:\n");
+				Scanner sc = new Scanner(System.in);
+				source = sc.nextLine();
+				if (source.charAt(0) == 'q') {
+					System.out.println("Exiting Application");
+					System.exit(0);
+				}
 
-			System.out.println("Please enter your destination station:\n");
-			destination = sc.nextLine(); // validation
+				// Get the second station name
+				System.out.println("Please enter your destination station:\n");
+				destination = sc.nextLine();
+				if (destination.charAt(0) == 'q') {
+					System.out.println("Exiting Application");
+					System.exit(0);
+				}
 
-			System.out.println("Calculating route...");
-			sc.close();
+				// Pass parameters for calculation and handle result
+				if (multiGraph.getNodeFromStationName(source) != null
+						&& multiGraph.getNodeFromStationName(destination) != null) {
+
+					System.out.println("Calculating route...");
+					sc.close();
+
+					route = multiGraph.findRoute(source, destination);
+					if (route != null) {
+						for (int i = 0; i < route.size(); i++) {
+							System.out.println(route);
+						}
+					} else
+						System.out.println("Route is empty!");
+				}
+			} while (source.charAt(0) != 'q');
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		route = multiGraph.findRoute(source, destination);
-		if (route != null) {
-			for (int i = 0; i < route.size(); i++) {
-				System.out.println(route);
-			}
-		} else
-			System.out.println("Route is empty!");
-
 	}
 }
