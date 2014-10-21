@@ -11,6 +11,8 @@ public class BostonMetroSystem {
 	public void execute() {
 		String source = "";
 		String destination = "";
+		Node sourceNode = null;
+		Node destinationNode = null;
 		String filename = "bostonmetro.txt";
 
 		try {
@@ -21,13 +23,13 @@ public class BostonMetroSystem {
 			System.out.println("=\tBoston Metro System\t=");
 			System.out.println("= G11\t\tWelcome!\t=");
 			System.out.println("=================================\n\n");
+			Scanner sc = new Scanner(System.in);
 
 			do {
 				// Get the first station name
 				System.out.println("Please enter your departure station:\n");
-				Scanner sc = new Scanner(System.in);
 				source = sc.nextLine();
-				if (source.charAt(0) == 'q') {
+				if (source.equals("quit")) {
 					System.out.println("Exiting Application");
 					System.exit(0);
 				}
@@ -35,7 +37,7 @@ public class BostonMetroSystem {
 				// Get the second station name
 				System.out.println("Please enter your destination station:\n");
 				destination = sc.nextLine();
-				if (destination.charAt(0) == 'q') {
+				if (destination.equals("quit")) {
 					System.out.println("Exiting Application");
 					System.exit(0);
 				}
@@ -45,18 +47,29 @@ public class BostonMetroSystem {
 						&& multiGraph.getNodeFromStationName(destination) != null) {
 
 					System.out.println("Calculating route...");
-					sc.close();
 
 					// Calculate the route and display it
-					route = multiGraph.findRoute(source, destination);
+					sourceNode = multiGraph.getNodeFromStationName(source);
+					destinationNode = multiGraph
+							.getNodeFromStationName(destination);
+
+					// TestData
+					// System.out.println("source" + sourceNode);
+					// System.out.println("dest:" + destinationNode);
+
+					route = multiGraph.findRoute(sourceNode, destinationNode);
 					if (route != null) {
 						for (int i = 0; i < route.size(); i++) {
 							System.out.println(route);
 						}
 					} else
 						System.out.println("Route is empty!");
+				} else {
+					System.out.println("Please enter two valid station names.");
 				}
-			} while (source.charAt(0) != 'q');
+			} while (source != "quit" || destination != "quit");
+			sc.close();
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
