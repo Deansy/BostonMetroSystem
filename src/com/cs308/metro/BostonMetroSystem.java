@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class BostonMetroSystem {
 
 	private MultiGraph multiGraph;
-	private ArrayList<String> route;
+	private ArrayList<Node> route;
 
 	public void execute() {
 		String source = "";
@@ -29,6 +29,18 @@ public class BostonMetroSystem {
 				// Get the first station name
 				System.out.println("Please enter your departure station:\n");
 				source = sc.nextLine();
+				// if (source.equals("St.PaulStreet")) {
+				// char stpaul;
+				// System.out
+				// .println("Did you mean St. Paul Street on Green B or GreenC?");
+				// stpaul = sc.nextLine().charAt(0);
+				// switch (stpaul) {
+				// case 'b':
+				// break;
+				// case 'c':
+				// break;
+				// }
+				// }
 				if (source.equals("quit")) {
 					System.out.println("Exiting Application");
 					System.exit(0);
@@ -60,10 +72,12 @@ public class BostonMetroSystem {
 					route = multiGraph.findRoute(sourceNode, destinationNode);
 					if (route != null) {
 						for (int i = 0; i < route.size(); i++) {
-							System.out.println(route);
+							System.out.println(i + ": "
+									+ route.get(i).getNodeLabel());
 						}
 					} else
 						System.out.println("Route is empty!");
+
 				} else {
 					System.out.println("Please enter two valid station names.");
 				}

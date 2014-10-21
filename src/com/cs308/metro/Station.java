@@ -31,7 +31,10 @@ public class Station implements Node{
 	public String getNodeLabel() {
 		return nodeLabel;
 	}
-
+	
+	public String toString(){
+		return ("Node ID " + nodeID + " Station Name: " + nodeLabel);
+	}
 //	public Boolean isEqual(Node n){
 //		return ((nodeID == n.getNodeID()) && (nodeLabel.equals(n.getNodeLabel())));
 //	}
