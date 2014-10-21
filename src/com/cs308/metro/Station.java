@@ -32,6 +32,8 @@ public class Station implements Node{
 		return nodeLabel;
 	}
 
-
+	public Boolean isEqual(Node n){
+		return ((nodeID == n.getNodeID()) && (nodeLabel.equals(n.getNodeLabel())));
+	}
 
 }
