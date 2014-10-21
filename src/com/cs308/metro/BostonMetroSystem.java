@@ -17,10 +17,10 @@ public class BostonMetroSystem {
 			MetroMapParser mmp = new MetroMapParser(filename);
 			multiGraph = mmp.generateGraphFromFile();
 
-			System.out.println("===================================");
-			System.out.println("=      Boston Metro System        =");
-			System.out.println("=           Welcome!              =");
-			System.out.println("===================================\n\n");
+			System.out.println("=================================");
+			System.out.println("=\tBoston Metro System\t=");
+			System.out.println("= G11\t\tWelcome!\t=");
+			System.out.println("=================================\n\n");
 
 			do {
 				// Get the first station name
@@ -40,13 +40,14 @@ public class BostonMetroSystem {
 					System.exit(0);
 				}
 
-				// Pass parameters for calculation and handle result
+				// If both are found then continue, otherwise prompt again
 				if (multiGraph.getNodeFromStationName(source) != null
 						&& multiGraph.getNodeFromStationName(destination) != null) {
 
 					System.out.println("Calculating route...");
 					sc.close();
 
+					// Calculate the route and display it
 					route = multiGraph.findRoute(source, destination);
 					if (route != null) {
 						for (int i = 0; i < route.size(); i++) {
